@@ -12,10 +12,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.Activity;
+
+
+import static com.example.calculator.Operator.add;
+import static com.example.calculator.Operator.div;
+import static com.example.calculator.Operator.multi;
+import static com.example.calculator.Operator.sub;
 
 
 public class Disp extends AppCompatActivity implements OnClickListener{
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,36 +50,37 @@ public class Disp extends AppCompatActivity implements OnClickListener{
         int iInputNum2;
         int iInputOpeFlag = 0;
 
-        // 数値FIZZBUZZを表示するテキスト
+        // 数値を表示するテキスト
         TextView tvOutputNum = findViewById(R.id.tvOutputNum);
 
         //　入力値
         EditText etInputNum1 = findViewById(R.id.etInputNum1);
-        SpannableStringBuilder sb = (SpannableStringBuilder) etInputNum1.getText();
-        String string1 = sb.toString();
+        SpannableStringBuilder sb1 = (SpannableStringBuilder) etInputNum1.getText();
+        String string1 = sb1.toString();
         iInputNum1 = Integer.parseInt(string1);
 
         EditText etInputNum2 = findViewById(R.id.etInputNum2);
-        SpannableStringBuilder sbfizz = (SpannableStringBuilder) etInputNum2.getText();
-        String string2 = sbfizz.toString();
+        SpannableStringBuilder sb2 = (SpannableStringBuilder) etInputNum2.getText();
+        String string2 = sb2.toString();
         iInputNum2 = Integer.parseInt(string2);
 
+        //演算子のフラグ
         switch (v.getId()){
             case R.id.btnOpeFlag_1:
-                iInputOpeFlag=1;
+                iInputOpeFlag=add;
                 showMessage("+");
                 break;
             case R.id.btnOpeFlag_2:
-                iInputOpeFlag=2;
+                iInputOpeFlag=sub;
                 showMessage("-");
                 break;
             case R.id.btnOpeFlag_3:
-                iInputOpeFlag=3;
+                iInputOpeFlag=multi;
                 showMessage("*");
                 break;
             case R.id.btnOpeFlag_4:
                 if(iInputNum2!=0) {
-                    iInputOpeFlag = 4;
+                    iInputOpeFlag = div;
                     showMessage("/");
                 }else{showMessage("0で除算することはできません。");
                 }
@@ -82,18 +90,15 @@ public class Disp extends AppCompatActivity implements OnClickListener{
 
         Calc Calc = new Calc(iInputNum1, iInputNum2, iInputOpeFlag);
 
-        strOutputNum = Calc.CalcNum();
-
-
-
-        // strOUTFIZZBUZZをテキストを設定して表示
-        tvOutputNum.setText(strOutputNum);
+        //テキストを設定して表示
+        tvOutputNum.setText(Calc.strCalcNum());
     }
 
     protected void showMessage(String msg){
         Toast.makeText(
             this,
             msg,Toast.LENGTH_SHORT).show();
-        }
 
     }
+
+}

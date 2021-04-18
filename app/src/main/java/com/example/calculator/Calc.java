@@ -1,14 +1,16 @@
 package com.example.calculator;
 
+import static com.example.calculator.Operator.add;
+import static com.example.calculator.Operator.div;
+import static com.example.calculator.Operator.multi;
+import static com.example.calculator.Operator.sub;
+
 public class Calc {
 
     int iCalcNum1;
     int iCalcNum2;
     int iOutputNum;
     int iCalcOpeFlag;
-
-    String strOutputNum="";
-
 
     public Calc (int iNum1, int iNum2, int iFlag){
 
@@ -18,29 +20,28 @@ public class Calc {
 
     }
 
-    String CalcNum (){
+    String strCalcNum (){
 
         switch(iCalcOpeFlag){
-            case 1:
+            case add:
                 this.iOutputNum = this.iCalcNum1 + this.iCalcNum2;
                 break;
-            case 2:
+            case sub:
                 this.iOutputNum = this.iCalcNum1 - this.iCalcNum2;
                 break;
-            case 3:
+            case multi:
                 this.iOutputNum = this.iCalcNum1 * this.iCalcNum2;
                 break;
-            case 4:
+            case div:
                 if(this.iCalcNum2!=0) {
                     this.iOutputNum = this.iCalcNum1 / this.iCalcNum2;
                 }
                 break;
         }
 
-        this.strOutputNum = String.valueOf(this.iOutputNum);
 
-        return this.strOutputNum;
 
+        return String.valueOf(this.iOutputNum);
     }
 
 
